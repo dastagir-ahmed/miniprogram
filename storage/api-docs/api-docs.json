@@ -1,0 +1,1757 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "在家办公小程序接口文档",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/activity/getlist": {
+            "get": {
+                "tags": [
+                    "活动"
+                ],
+                "summary": "获取分页列表",
+                "operationId": "App\\Http\\Controllers\\Api\\ActivityController::getList",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/activity/getdetail": {
+            "get": {
+                "tags": [
+                    "活动"
+                ],
+                "summary": "获取活动详情",
+                "operationId": "App\\Http\\Controllers\\Api\\ActivityController::getDetail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "活动id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回详情"
+                    }
+                }
+            }
+        },
+        "/api/activityrecord/save": {
+            "post": {
+                "tags": [
+                    "活动"
+                ],
+                "summary": "发帖",
+                "operationId": "App\\Http\\Controllers\\Api\\ActivityRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "activity_id": {
+                                        "description": "活动id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/articlecomment/save": {
+            "post": {
+                "tags": [
+                    "文章管理"
+                ],
+                "summary": "添加评论",
+                "operationId": "App\\Http\\Controllers\\Api\\ArticleCommentController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "article_id": {
+                                        "description": "文章id",
+                                        "type": "integer"
+                                    },
+                                    "parent_id": {
+                                        "description": "父id,评论为0，回复时为评论id",
+                                        "type": "integer"
+                                    },
+                                    "contents": {
+                                        "description": "评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/articlecomment/delete": {
+            "get": {
+                "tags": [
+                    "文章管理"
+                ],
+                "summary": "删除评论",
+                "operationId": "App\\Http\\Controllers\\Api\\ArticleCommentController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/articlecomment/getlist": {
+            "get": {
+                "tags": [
+                    "文章管理"
+                ],
+                "summary": "获取文章评论列表",
+                "operationId": "App\\Http\\Controllers\\Api\\ArticleCommentController::getList",
+                "parameters": [
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "article_id",
+                        "in": "query",
+                        "description": "文章id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "用户id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回所有已精选的评论及当前登录用户的所有评论，包含评论点赞数total"
+                    }
+                }
+            }
+        },
+        "/api/articlecommentlike/save": {
+            "post": {
+                "tags": [
+                    "文章管理"
+                ],
+                "summary": "增加评论点赞取消点赞",
+                "operationId": "App\\Http\\Controllers\\Api\\ArticleCommentLikeController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "article_comment_id": {
+                                        "description": "评论id",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/article/getdetail": {
+            "get": {
+                "tags": [
+                    "文章管理"
+                ],
+                "summary": "获取文章详情",
+                "operationId": "App\\Http\\Controllers\\Api\\ArticleController::getDetail",
+                "parameters": [
+                    {
+                        "name": "column_id",
+                        "in": "query",
+                        "description": "栏目id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回文章详情，包含评论总数、点赞总数、浏览总数"
+                    }
+                }
+            }
+        },
+        "/api/articlerecord/save": {
+            "post": {
+                "tags": [
+                    "文章管理"
+                ],
+                "summary": "增加文章记录或点赞取消点赞",
+                "operationId": "App\\Http\\Controllers\\Api\\ArticleRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "article_id": {
+                                        "description": "文章id",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "description": "类型，1表示浏览，2表示点赞",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/column/getlist": {
+            "get": {
+                "tags": [
+                    "栏目管理"
+                ],
+                "summary": "获取栏目",
+                "operationId": "App\\Http\\Controllers\\Api\\ColumnController::getList",
+                "parameters": [
+                    {
+                        "name": "parent_id",
+                        "in": "query",
+                        "description": "父id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "用户id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回所有栏目"
+                    }
+                }
+            }
+        },
+        "/api/common/upload": {
+            "post": {
+                "tags": [
+                    "公共接口"
+                ],
+                "summary": "上传文件图片头像等，使用md5值作为文件名 防止重复文件",
+                "operationId": "App\\Http\\Controllers\\Api\\CommonController::upload",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "file",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/feedback/save": {
+            "post": {
+                "tags": [
+                    "个人中心"
+                ],
+                "summary": "增加意见反馈",
+                "operationId": "App\\Http\\Controllers\\Api\\FeedbackController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "contents": {
+                                        "description": "内容",
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "description": "联系方式",
+                                        "type": "string"
+                                    },
+                                    "imgs": {
+                                        "description": "图片地址，多个用,隔开",
+                                        "type": "string"
+                                    },
+                                    "types": {
+                                        "description": "问题类型，多个用,隔开",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/feedbacktype/getlist": {
+            "get": {
+                "tags": [
+                    "个人中心"
+                ],
+                "summary": "获取意见反馈问题类型",
+                "operationId": "App\\Http\\Controllers\\Api\\FeedbackTypeController::getList",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "返回所有"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/forumcomment/save": {
+            "post": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "添加评论",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumCommentController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "forum_id": {
+                                        "description": "帖子id",
+                                        "type": "integer"
+                                    },
+                                    "parent_id": {
+                                        "description": "父id,评论为0，回复时为评论id",
+                                        "type": "integer"
+                                    },
+                                    "contents": {
+                                        "description": "评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/forumcomment/delete": {
+            "get": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "删除评论",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumCommentController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/forumcomment/getlist": {
+            "get": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "获取评论列表",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumCommentController::getList",
+                "parameters": [
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "forum_id",
+                        "in": "query",
+                        "description": "帖子id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "用户id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回所有已精选的评论及当前登录用户的所有评论，包含评论点赞数total"
+                    }
+                }
+            }
+        },
+        "/api/forumcommentlike/save": {
+            "post": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "增加评论点赞取消点赞",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumCommentLikeController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "forum_comment_id": {
+                                        "description": "评论id",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/forum/save": {
+            "post": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "发帖",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "contents": {
+                                        "description": "内容",
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "description": "标题",
+                                        "type": "string"
+                                    },
+                                    "imgs": {
+                                        "description": "图片地址，多个用,隔开",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/forum/getdetail": {
+            "get": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "获取详情",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumController::getDetail",
+                "parameters": [
+                    {
+                        "name": "column_id",
+                        "in": "query",
+                        "description": "栏目id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回文章详情，包含评论总数、点赞总数、浏览总数"
+                    }
+                }
+            }
+        },
+        "/api/forum/getlist": {
+            "get": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "获取分页列表",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumController::getList",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/forumrecord/save": {
+            "post": {
+                "tags": [
+                    "中心广场"
+                ],
+                "summary": "增加浏览记录或点赞取消点赞",
+                "operationId": "App\\Http\\Controllers\\Api\\ForumRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "forum_id": {
+                                        "description": "帖子id",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "description": "类型，1表示浏览，2表示点赞",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/gateway/bind": {
+            "post": {
+                "tags": [
+                    "导师"
+                ],
+                "summary": "将client_id与user_id绑定起来",
+                "operationId": "App\\Http\\Controllers\\Api\\GatewayController::bind",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "client_id": {
+                                        "description": "client_id",
+                                        "type": "string"
+                                    },
+                                    "group_id": {
+                                        "description": "分组id，也即是导师id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/news/getlist": {
+            "get": {
+                "tags": [
+                    "新闻"
+                ],
+                "summary": "获取分页列表",
+                "operationId": "App\\Http\\Controllers\\Api\\NewsController::getList",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/news/getdetail": {
+            "get": {
+                "tags": [
+                    "新闻"
+                ],
+                "summary": "获取详情",
+                "operationId": "App\\Http\\Controllers\\Api\\NewsController::getDetail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回文章详情，包含评论总数"
+                    }
+                }
+            }
+        },
+        "/api/newsrecord/save": {
+            "post": {
+                "tags": [
+                    "新闻"
+                ],
+                "summary": "增加浏览记录",
+                "operationId": "App\\Http\\Controllers\\Api\\NewsRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "news_id": {
+                                        "description": "文章id",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/question/getlist": {
+            "get": {
+                "tags": [
+                    "问卷"
+                ],
+                "summary": "获取试题",
+                "operationId": "App\\Http\\Controllers\\Api\\QuestionController::getList",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "返回问卷试题"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/quwenqiushi/getdetail": {
+            "get": {
+                "tags": [
+                    "趣闻糗事"
+                ],
+                "summary": "获取详情",
+                "operationId": "App\\Http\\Controllers\\Api\\QuwenQiushiController::getDetail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回文章详情，包含评论总数、点赞总数、浏览总数"
+                    }
+                }
+            }
+        },
+        "/api/quwenqiushi/getlist": {
+            "get": {
+                "tags": [
+                    "趣闻糗事"
+                ],
+                "summary": "获取分页列表",
+                "operationId": "App\\Http\\Controllers\\Api\\QuwenQiushiController::getList",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功,type=1表示趣闻，2表示糗事"
+                    }
+                }
+            }
+        },
+        "/api/quwenqiushirecord/save": {
+            "post": {
+                "tags": [
+                    "趣闻糗事"
+                ],
+                "summary": "增加浏览记录或点赞取消点赞",
+                "operationId": "App\\Http\\Controllers\\Api\\QuwenQiushiRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "quwen_qiushi_id": {
+                                        "description": "文章id",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "description": "类型，1表示浏览，2表示点赞",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/starplan/getlist": {
+            "get": {
+                "tags": [
+                    "星光计划"
+                ],
+                "summary": "获取所有",
+                "operationId": "App\\Http\\Controllers\\Api\\StarPlanController::getList",
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/starplanrecord/save": {
+            "post": {
+                "tags": [
+                    "星光计划"
+                ],
+                "summary": "发帖",
+                "operationId": "App\\Http\\Controllers\\Api\\StarPlanRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "star_plan_id": {
+                                        "description": "星光计划id",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "姓名",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "邮箱",
+                                        "type": "string"
+                                    },
+                                    "reason": {
+                                        "description": "理由",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/tutor/save": {
+            "post": {
+                "tags": [
+                    "导师"
+                ],
+                "summary": "发帖",
+                "operationId": "App\\Http\\Controllers\\Api\\TutorController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "sex": {
+                                        "description": "性别，1表示女，2表示男",
+                                        "type": "integer"
+                                    },
+                                    "age": {
+                                        "description": "年龄",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "姓名",
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "description": "电话",
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "description": "城市",
+                                        "type": "string"
+                                    },
+                                    "company": {
+                                        "description": "企业",
+                                        "type": "string"
+                                    },
+                                    "job": {
+                                        "description": "工作",
+                                        "type": "string"
+                                    },
+                                    "time": {
+                                        "description": "在家办公时长",
+                                        "type": "integer"
+                                    },
+                                    "remark": {
+                                        "description": "申请说明",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/totormessage/getlist": {
+            "get": {
+                "tags": [
+                    "导师"
+                ],
+                "summary": "获取分页列表",
+                "operationId": "App\\Http\\Controllers\\Api\\TutorMessageController::getList",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "group_id",
+                        "in": "query",
+                        "description": "分组id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/tutormy/save": {
+            "post": {
+                "tags": [
+                    "导师"
+                ],
+                "summary": "发帖",
+                "operationId": "App\\Http\\Controllers\\Api\\TutorMyController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "tutor_id": {
+                                        "description": "导师id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/user/login": {
+            "get": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "账号+密码登录",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::login",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "账号",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密码",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回token"
+                    }
+                }
+            }
+        },
+        "/api/user/phonelogin": {
+            "get": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "手机号+密码登录",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::phoneLogin",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "手机号",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密码",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回token"
+                    }
+                }
+            }
+        },
+        "/api/user/register": {
+            "post": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "用户名注册",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "tel",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "description": "用户名",
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "description": "手机号",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "邮箱",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "密码",
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "确认密码",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/user/phoneregister": {
+            "post": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "手机号+验证码注册",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::phoneRegister",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "tel",
+                                    "code",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "tel": {
+                                        "description": "手机号",
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "description": "验证码",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "密码",
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "确认密码",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/user/updatepwd": {
+            "post": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "修改密码",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::updatePwd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "oldpassword",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "oldpassword": {
+                                        "description": "旧密码",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "新密码",
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "确认密码",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/user/resetpwd1": {
+            "post": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "重置密码第一步 验证手机号",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::resetPwd1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone",
+                                    "code"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "description": "手机号",
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "description": "验证码",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/user/resetpwd2": {
+            "post": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "重置密码第二步 验证手机号",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::resetPwd2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "password": {
+                                        "description": "新密码",
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "确认密码",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                }
+            }
+        },
+        "/api/user/getinfo": {
+            "get": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "获取基本信息",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::getInfo",
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/user/updateinfo": {
+            "post": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "更新用户基本信息",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::updateInfo",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "tel",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "description": "用户名",
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "description": "手机号",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "邮箱",
+                                        "type": "string"
+                                    },
+                                    "avatar_url": {
+                                        "description": "头像地址",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/usermessage/getlist": {
+            "get": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "获取分页列表",
+                "operationId": "App\\Http\\Controllers\\Api\\UserMessageController::getList",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "每页数量",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageNum",
+                        "in": "query",
+                        "description": "页码",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "类型，1表示系统消息，2表示互动消息",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/userquestionrecord/save": {
+            "post": {
+                "tags": [
+                    "问卷"
+                ],
+                "summary": "用户提交答案",
+                "description": "同一个用户，同一道题多次答题会更新答题记录",
+                "operationId": "App\\Http\\Controllers\\Api\\UserQuestionRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "data"
+                                ],
+                                "properties": {
+                                    "data": {
+                                        "description": "答题数组",
+                                        "type": "string"
+                                    },
+                                    "answers": {
+                                        "description": "用户的选项，多选用,隔开",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/zaochenjiayourecord/save": {
+            "post": {
+                "tags": [
+                    "BetterMe"
+                ],
+                "summary": "早晨加油",
+                "operationId": "App\\Http\\Controllers\\Api\\ZaoChenJiaYouRecordController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "contents": {
+                                        "description": "内容",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "description": "用户id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "description": "Authorization token obtained from logging in.",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
